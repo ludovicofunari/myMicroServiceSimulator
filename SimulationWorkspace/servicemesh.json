@@ -1,0 +1,39 @@
+{
+  "s0": {
+    "external_services": [
+      {
+        "seq_len": 100,
+        "services": [
+          "s1",
+          "s2"
+        ]
+      }
+    ]
+  },
+  "s1": {
+    "external_services": [
+      {
+        "seq_len": 100,
+        "services": [
+          "s3"
+        ]
+      }
+    ]
+  },
+  "s2": {
+    "external_services": [
+      {
+        "seq_len": 100,
+        "services": [
+          "s4"
+        ]
+      }
+    ]
+  },
+  "s3": {
+    "external_services": []
+  },
+  "s4": {
+    "external_services": []
+  }
+}

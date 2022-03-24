@@ -1,0 +1,17 @@
+{
+   "K8sParameters": {
+      "prefix_yaml_file":"MicroServiceDeployment",
+      "namespace": "ubench",
+      "image": "msvcbench/microservice_v3-screen:latest",
+      "cluster_domain": "cluster",
+      "path": "/api/v1",
+      "sleep": 0
+   },
+   "NFSConfigurations": {
+      "address": "192.168.100.158",
+      "mount_path": "/kubedata/mubSharedData"
+   },
+   "InternalServiceFilePath": "CustomFunctions",
+   "OutputPath": "SimulationWorkspace",
+   "WorkModelPath": "SimulationWorkspace/workmodel-teastore-like.json"
+}

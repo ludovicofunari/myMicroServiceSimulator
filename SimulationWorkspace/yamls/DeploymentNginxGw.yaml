@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-gateway-nginx
+  namespace: ubench
+  labels:  
+    app: ms-gateway-nginx
+    version: "1.0"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app: ms-gateway-nginx
+  template:
+    metadata:
+      labels:
+        app: ms-gateway-nginx
+        version: "1.0"
+    spec:
+      containers:
+      - name: ms-gateway-nginx
+        image: nginx
+        ports:
+        - name: http-nginx
+          containerPort: 80
+        volumeMounts:
+        - mountPath: /etc/nginx/nginx.conf
+          readOnly: true
+          name: config-volume
+          subPath: nginx.conf
+        - mountPath: /var/log/nginx
+          name: log
+        - name: microservice-volume
+          mountPath: /etc/nginx/MSConfig
+      volumes:
+      - name: config-volume
+        configMap:
+          name: ms-gateway-configmap
+      - name: log
+        emptyDir: {}
+      - name: microservice-volume
+        persistentVolumeClaim:
+          claimName: nfs-pvc-ms
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-gw-nginx-svc
+  namespace: ubench
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+      nodePort: 31113
+      name: http-nginx
+  selector:
+    app: ms-gateway-nginx
+
